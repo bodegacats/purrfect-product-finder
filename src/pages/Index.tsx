@@ -57,54 +57,33 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-navy-800 via-navy-700 to-navy-900 py-20 lg:py-32 relative overflow-hidden">
-        {/* Cat-themed background elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 text-6xl">🐾</div>
-          <div className="absolute top-40 right-20 text-4xl">🐾</div>
-          <div className="absolute bottom-32 left-1/4 text-5xl">🐾</div>
-          <div className="absolute top-60 left-1/3 text-3xl">🐾</div>
-          <div className="absolute bottom-20 right-1/4 text-4xl">🐾</div>
-        </div>
-        
+      {/* Hero Section - Simplified */}
+      <section className="bg-gradient-to-br from-navy-800 via-navy-700 to-navy-900 py-32 lg:py-40 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
-            <div className="flex justify-center items-center mb-6">
-              <div className="text-8xl mr-4">😸</div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white animate-fade-in">
-                Find Cat Products Worth
-                <span className="block text-orange-400">All 9 Lives! 🎯</span>
-              </h1>
-            </div>
-            <p className="text-xl md:text-2xl text-navy-200 mb-12 max-w-4xl mx-auto leading-relaxed">
-              We obsess over cat products so you don't have to! Our team of cat lovers tests everything to find what actually works for our feline friends 🧪✨
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-tight">
+              Find Cat Products Worth
+              <span className="block text-orange-400 mt-2">All 9 Lives</span>
+            </h1>
+            <p className="text-2xl md:text-3xl text-navy-200 mb-16 max-w-4xl mx-auto font-light">
+              We test thousands of products so you only see the winners
             </p>
             
-            {/* Trust Indicators */}
-            <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 mb-16">
-              <div className="flex items-center text-navy-200">
-                <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-                <span className="text-lg font-medium">50,000+ Products Tested (So Far!) 📊</span>
-              </div>
+            {/* Trust Indicators - Simplified */}
+            <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-12 mb-16 text-navy-200">
+              <div className="text-lg font-medium">50,000+ Products Tested</div>
               <div className="hidden md:block w-px h-6 bg-navy-600"></div>
-              <div className="flex items-center text-navy-200">
-                <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-                <span className="text-lg font-medium">Research-Backed (And Cat-Approved!) ✅</span>
-              </div>
+              <div className="text-lg font-medium">Research-Backed Reviews</div>
               <div className="hidden md:block w-px h-6 bg-navy-600"></div>
-              <div className="flex items-center text-navy-200">
-                <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-                <span className="text-lg font-medium">Recommendations That Actually Work 💪</span>
-              </div>
+              <div className="text-lg font-medium">Only Winners Make the Cut</div>
             </div>
 
             <Button 
               size="lg" 
-              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-12 py-6 text-xl font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
-              Start Your Search 🔍
-              <Search className="ml-2 h-5 w-5" />
+              Start Your Search
+              <Search className="ml-3 h-6 w-6" />
             </Button>
           </div>
         </div>

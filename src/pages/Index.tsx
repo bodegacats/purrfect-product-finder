@@ -1,9 +1,47 @@
-
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import NineLivesRating from "@/components/NineLivesRating";
+import NineLivesBadge from "@/components/NineLivesBadge";
+import ProductCard from "@/components/ProductCard";
 
 const Index = () => {
+  const sampleProducts = [
+    {
+      name: "PetSafe ScoopFree Ultra Self-Cleaning Litter Box",
+      category: "Litter & Hygiene",
+      rating: 9,
+      price: "$169.95",
+      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop",
+      description: "Revolutionary self-cleaning technology with crystal litter that absorbs odors for weeks.",
+      isPerfect: true
+    },
+    {
+      name: "Hill's Science Diet Indoor Cat Food",
+      category: "Food & Nutrition",
+      rating: 8,
+      price: "$54.99",
+      image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=400&fit=crop",
+      description: "Precisely balanced nutrition for indoor cats with natural fiber for healthy digestion."
+    },
+    {
+      name: "FELIWAY Classic Cat Calming Diffuser",
+      category: "Health & Wellness",
+      rating: 7,
+      price: "$24.99",
+      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop",
+      description: "Clinically proven to reduce stress-related behaviors in cats using natural pheromones."
+    },
+    {
+      name: "Whisker City Scratching Post",
+      category: "Toys & Enrichment",
+      rating: 5,
+      price: "$39.99",
+      image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=400&fit=crop",
+      description: "Basic sisal scratching post that gets the job done but lacks premium features."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -60,6 +98,194 @@ const Index = () => {
               Start Your Search
               <Search className="ml-2 h-5 w-5" />
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* 9 Lives Rating System Showcase */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy-800 mb-4">
+              The 9 Lives Rating System
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Our signature rating system evaluates products across 9 critical factors that matter most to cats and their owners
+            </p>
+            
+            {/* Rating Examples */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              <div className="text-center">
+                <NineLivesRating rating={9} size="lg" />
+                <p className="mt-3 font-semibold text-navy-800">Perfect Score</p>
+                <p className="text-sm text-gray-600">Outstanding in every way</p>
+              </div>
+              <div className="text-center">
+                <NineLivesRating rating={7} size="lg" />
+                <p className="mt-3 font-semibold text-navy-800">Excellent</p>
+                <p className="text-sm text-gray-600">Highly recommended</p>
+              </div>
+              <div className="text-center">
+                <NineLivesRating rating={5} size="lg" />
+                <p className="mt-3 font-semibold text-navy-800">Good</p>
+                <p className="text-sm text-gray-600">Solid choice with trade-offs</p>
+              </div>
+              <div className="text-center">
+                <NineLivesRating rating={2} size="lg" />
+                <p className="mt-3 font-semibold text-navy-800">Poor</p>
+                <p className="text-sm text-gray-600">Look for alternatives</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy-800 mb-4">
+              Top-Rated Cat Products
+            </h2>
+            <p className="text-xl text-gray-600">
+              Products that have earned their stripes in our rigorous testing process
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {sampleProducts.map((product, index) => (
+              <ProductCard key={index} {...product} />
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Button 
+              size="lg" 
+              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold"
+            >
+              View All Products
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* How 9 Lives Rating Works */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy-800 mb-4">
+              How the 9 Lives Rating Works
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Each product is evaluated across 9 essential categories, earning one "life" for excellence in each area
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-orange-600">1-3</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-800 mb-2">Basic Quality</h3>
+              <NineLivesRating rating={2} />
+              <p className="text-gray-600 mt-3">
+                Products that meet minimum standards but have significant limitations
+              </p>
+            </Card>
+
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-green-600">4-8</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-800 mb-2">Recommended</h3>
+              <NineLivesRating rating={7} />
+              <p className="text-gray-600 mt-3">
+                Solid products that excel in most areas with minor compromises
+              </p>
+            </Card>
+
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow duration-300 border-2 border-yellow-200 bg-yellow-50">
+              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-yellow-600">9</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-800 mb-2">Perfect Score</h3>
+              <div className="flex justify-center mb-3">
+                <NineLivesBadge />
+              </div>
+              <NineLivesRating rating={9} />
+              <p className="text-gray-600 mt-3">
+                Outstanding products that excel in every category we test
+              </p>
+            </Card>
+          </div>
+
+          {/* Rating Categories */}
+          <div className="bg-navy-50 rounded-2xl p-8">
+            <h3 className="text-2xl font-bold text-navy-800 text-center mb-8">
+              The 9 Essential Categories We Test
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white font-bold text-sm">1</span>
+                  </div>
+                  <span className="font-semibold text-navy-800">Safety & Materials</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white font-bold text-sm">2</span>
+                  </div>
+                  <span className="font-semibold text-navy-800">Durability & Build</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white font-bold text-sm">3</span>
+                  </div>
+                  <span className="font-semibold text-navy-800">Cat Acceptance</span>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white font-bold text-sm">4</span>
+                  </div>
+                  <span className="font-semibold text-navy-800">Ease of Use</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white font-bold text-sm">5</span>
+                  </div>
+                  <span className="font-semibold text-navy-800">Value for Money</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white font-bold text-sm">6</span>
+                  </div>
+                  <span className="font-semibold text-navy-800">Innovation</span>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white font-bold text-sm">7</span>
+                  </div>
+                  <span className="font-semibold text-navy-800">Customer Support</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white font-bold text-sm">8</span>
+                  </div>
+                  <span className="font-semibold text-navy-800">Environmental Impact</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-white font-bold text-sm">9</span>
+                  </div>
+                  <span className="font-semibold text-navy-800">Long-term Performance</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -1,10 +1,10 @@
-
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import NineLivesRating from "@/components/NineLivesRating";
 import NineLivesBadge from "@/components/NineLivesBadge";
 import ProductCard from "@/components/ProductCard";
+import Navigation from "@/components/Navigation";
 
 const Index = () => {
   const sampleProducts = [
@@ -52,12 +52,7 @@ const Index = () => {
             <div className="flex items-center">
               <h1 className="text-2xl font-bold text-navy-800">🐱 CatData AI</h1>
             </div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-navy-600 hover:text-navy-800 transition-colors">Research</a>
-              <a href="#" className="text-navy-600 hover:text-navy-800 transition-colors">Categories</a>
-              <a href="#" className="text-navy-600 hover:text-navy-800 transition-colors">Reviews</a>
-              <a href="#" className="text-navy-600 hover:text-navy-800 transition-colors">About</a>
-            </nav>
+            <Navigation />
           </div>
         </div>
       </header>

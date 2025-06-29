@@ -13,6 +13,8 @@ const Navigation = () => {
     { href: "/scratching", label: "Scratching & Furniture" },
     { href: "/toys", label: "Toys & Entertainment" },
     { href: "/nine-lives-certified", label: "9 Lives Certified" },
+    { href: "/research", label: "Research" },
+    { href: "/how-we-rate", label: "How We Rate" },
     { href: "/chat", label: "Chat AI 🤖" }
   ];
 

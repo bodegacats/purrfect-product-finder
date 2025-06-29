@@ -12,7 +12,8 @@ const Navigation = () => {
     { href: "/food", label: "Food & Nutrition" },
     { href: "/scratching", label: "Scratching & Furniture" },
     { href: "/toys", label: "Toys & Entertainment" },
-    { href: "/nine-lives-certified", label: "9 Lives Certified" }
+    { href: "/nine-lives-certified", label: "9 Lives Certified" },
+    { href: "/chat", label: "Chat AI 🤖" }
   ];
 
   return (

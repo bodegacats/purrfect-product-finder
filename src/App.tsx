@@ -10,7 +10,9 @@ import FoodPage from "./pages/FoodPage";
 import ScratchingPage from "./pages/ScratchingPage";
 import ToysPage from "./pages/ToysPage";
 import NineLivesCertifiedPage from "./pages/NineLivesCertifiedPage";
+import ChatPage from "./pages/ChatPage";
 import NotFound from "./pages/NotFound";
+import FloatingChatButton from "./components/FloatingChatButton";
 
 const queryClient = new QueryClient();
 
@@ -27,9 +29,11 @@ const App = () => (
           <Route path="/scratching" element={<ScratchingPage />} />
           <Route path="/toys" element={<ToysPage />} />
           <Route path="/nine-lives-certified" element={<NineLivesCertifiedPage />} />
+          <Route path="/chat" element={<ChatPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <FloatingChatButton />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

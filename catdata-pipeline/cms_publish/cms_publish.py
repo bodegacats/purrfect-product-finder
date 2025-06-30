@@ -13,9 +13,15 @@ CONTENT_DIR = Path(__file__).resolve().parents[1] / "content"
 CMS_API_URL = os.getenv("CMS_API_URL", "https://cms.example.com/api/pages")
 CMS_API_KEY = os.getenv("CMS_API_KEY", "")
 
+# FTC affiliate disclosure used across all published pages
+FTC_DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
+
 
 def publish_page(title: str, body: str) -> None:
     """Create or update a page via Lovable CMS API."""
+    # Ensure disclosure is present before publishing
+    if FTC_DISCLOSURE not in body:
+        body = f"{FTC_DISCLOSURE}\n\n{body}"
     payload = {
         "title": title,
         "body": body,

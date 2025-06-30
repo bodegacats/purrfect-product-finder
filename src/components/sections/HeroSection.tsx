@@ -12,13 +12,13 @@ const HeroSection = () => {
             <span className="block text-orange-400 mt-2">All 9 Lives</span>
           </h1>
           <p className="text-2xl md:text-3xl text-navy-200 mb-16 max-w-4xl mx-auto font-light">
-            We test thousands of products so you only see the winners
+            We analyze thousands of reviews so you only see the winners
           </p>
           
           <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-12 mb-16 text-navy-200">
-            <div className="text-lg font-medium">50,000+ Products Tested</div>
+            <div className="text-lg font-medium">50,000+ Products Analyzed</div>
             <div className="hidden md:block w-px h-6 bg-navy-600"></div>
-            <div className="text-lg font-medium">Research-Backed Reviews</div>
+            <div className="text-lg font-medium">Data-Driven Reviews</div>
             <div className="hidden md:block w-px h-6 bg-navy-600"></div>
             <div className="text-lg font-medium">Only Winners Make the Cut</div>
           </div>

@@ -12,7 +12,7 @@ const ResearchPage = () => {
       category: "Litter & Systems",
       date: "December 2024",
       readTime: "8 min read",
-      summary: "Our comprehensive analysis of 247 litter boxes reveals the shocking truth about quality standards in the pet industry.",
+      summary: "Our comprehensive analysis of 247 litter boxes and 50,000+ reviews reveals the shocking truth about quality standards in the pet industry.",
       icon: <BarChart3 className="w-6 h-6" />,
       slug: "litter-box-study"
     },
@@ -21,7 +21,7 @@ const ResearchPage = () => {
       category: "Food & Nutrition",
       date: "November 2024",
       readTime: "12 min read",
-      summary: "We tested 189 cat food products across 9 categories. Here's what we discovered about nutrition quality.",
+      summary: "We analyzed 189 cat food products and 75,000+ user reviews across 9 categories. Here's what we discovered about nutrition quality.",
       icon: <TrendingUp className="w-6 h-6" />,
       slug: "cat-food-study"
     },
@@ -30,7 +30,7 @@ const ResearchPage = () => {
       category: "Scratching & Furniture",
       date: "October 2024",
       readTime: "6 min read",
-      summary: "Our 6-month durability test of 156 scratching posts reveals surprising winners and disappointing failures.",
+      summary: "Our analysis of 156 scratching posts and 25,000+ long-term user reviews reveals surprising winners and disappointing failures.",
       icon: <FileText className="w-6 h-6" />,
       slug: "scratching-post-durability"
     }
@@ -58,7 +58,7 @@ const ResearchPage = () => {
             Research & Studies 📊
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover the science behind our 9 Lives rating system. Our independent research helps cat parents make informed decisions.
+            Discover the data behind our 9 Lives rating system. Our comprehensive analysis helps cat parents make informed decisions.
           </p>
         </div>
 
@@ -100,9 +100,9 @@ const ResearchPage = () => {
 
         {/* Methodology CTA */}
         <div className="text-center bg-navy-50 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-navy-800 mb-4">How Do We Rate Products? 🔬</h3>
+          <h3 className="text-2xl font-bold text-navy-800 mb-4">How Do We Analyze Products? 🔬</h3>
           <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">
-            Learn about our rigorous 9-category testing methodology that ensures every rating is accurate and reliable.
+            Learn about our comprehensive data aggregation and analysis methodology that ensures every rating is accurate and reliable.
           </p>
           <Link to="/how-we-rate">
             <Button size="lg" className="bg-orange-500 hover:bg-orange-600">

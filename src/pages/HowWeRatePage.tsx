@@ -1,7 +1,6 @@
-
 import Navigation from "@/components/Navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Hammer, Heart, Users, DollarSign, Lightbulb, CheckCircle, AlertTriangle, Trophy } from "lucide-react";
+import { Shield, Hammer, Heart, Users, DollarSign, Lightbulb, CheckCircle, BarChart3, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import NineLivesRating from "@/components/NineLivesRating";
 
@@ -10,42 +9,42 @@ const HowWeRatePage = () => {
     {
       name: "Safety & Materials",
       icon: <Shield className="w-6 h-6" />,
-      description: "Non-toxic materials, safety certifications, and health considerations",
+      description: "Review mentions of materials, safety concerns, and health-related feedback",
       weight: "Critical",
       color: "text-red-600"
     },
     {
       name: "Durability & Build Quality",
       icon: <Hammer className="w-6 h-6" />,
-      description: "Construction quality, longevity testing, and wear resistance",
+      description: "Long-term user reports, durability mentions, and construction quality feedback",
       weight: "High",
       color: "text-orange-600"
     },
     {
       name: "Cat Acceptance & Enjoyment",
       icon: <Heart className="w-6 h-6" />,
-      description: "Real cat testing, behavioral observations, and preference studies",
+      description: "User reports of cat behavior, preferences, and product engagement",
       weight: "Critical",
       color: "text-red-600"
     },
     {
       name: "Ease of Use (Human)",
       icon: <Users className="w-6 h-6" />,
-      description: "Setup difficulty, maintenance requirements, and user experience",
+      description: "User feedback on setup, maintenance, and overall experience",
       weight: "Medium",
       color: "text-blue-600"
     },
     {
       name: "Value for Money",
       icon: <DollarSign className="w-6 h-6" />,
-      description: "Cost-effectiveness, durability per dollar, and long-term value",
+      description: "Price-to-quality ratio analysis from user reviews and market comparison",
       weight: "Medium",
       color: "text-green-600"
     },
     {
       name: "Innovation & Design",
       icon: <Lightbulb className="w-6 h-6" />,
-      description: "Unique features, problem-solving capabilities, and design excellence",
+      description: "User mentions of unique features, design quality, and problem-solving capabilities",
       weight: "Low",
       color: "text-purple-600"
     }
@@ -85,7 +84,7 @@ const HowWeRatePage = () => {
             How We Rate Products 🔬
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our 9 Lives rating system combines scientific testing, real cat behavior studies, and expert analysis to give you the most accurate product ratings.
+            Our 9 Lives rating system combines comprehensive data analysis, review aggregation, and expert evaluation to give you the most accurate product ratings.
           </p>
         </div>
 
@@ -141,20 +140,34 @@ const HowWeRatePage = () => {
           </div>
         </div>
 
-        {/* Testing Process */}
+        {/* Analysis Process */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-navy-800 mb-8 text-center">Our Testing Process</h2>
+          <h2 className="text-2xl font-bold text-navy-800 mb-8 text-center">Our Analysis Process</h2>
           <div className="grid md:grid-cols-3 gap-8">
+            <Card className="text-center">
+              <CardHeader>
+                <div className="mx-auto mb-4 p-3 bg-orange-100 rounded-full w-fit">
+                  <BarChart3 className="w-8 h-8 text-orange-600" />
+                </div>
+                <CardTitle className="text-xl text-navy-800">Data Aggregation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  We collect and analyze thousands of reviews, ratings, and user feedback from multiple sources across the web.
+                </p>
+              </CardContent>
+            </Card>
+
             <Card className="text-center">
               <CardHeader>
                 <div className="mx-auto mb-4 p-3 bg-orange-100 rounded-full w-fit">
                   <CheckCircle className="w-8 h-8 text-orange-600" />
                 </div>
-                <CardTitle className="text-xl text-navy-800">Lab Testing</CardTitle>
+                <CardTitle className="text-xl text-navy-800">Review Verification</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Independent laboratory analysis for safety, durability, and material quality using industry-standard protocols.
+                  Advanced algorithms filter out fake reviews and identify genuine user experiences to ensure data accuracy.
                 </p>
               </CardContent>
             </Card>
@@ -162,27 +175,13 @@ const HowWeRatePage = () => {
             <Card className="text-center">
               <CardHeader>
                 <div className="mx-auto mb-4 p-3 bg-orange-100 rounded-full w-fit">
-                  <Heart className="w-8 h-8 text-orange-600" />
+                  <Trophy className="w-8 h-8 text-orange-600" />
                 </div>
-                <CardTitle className="text-xl text-navy-800">Real Cat Testing</CardTitle>
+                <CardTitle className="text-xl text-navy-800">Expert Analysis</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Behavior studies with over 200 cats across different breeds, ages, and personalities to measure acceptance and enjoyment.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <div className="mx-auto mb-4 p-3 bg-orange-100 rounded-full w-fit">
-                  <Users className="w-8 h-8 text-orange-600" />
-                </div>
-                <CardTitle className="text-xl text-navy-800">Human Usability</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Real-world testing with cat parents to evaluate setup, maintenance, and overall user experience.
+                  Our team of cat experts and data analysts evaluate patterns and trends to create final ratings.
                 </p>
               </CardContent>
             </Card>
@@ -194,20 +193,20 @@ const HowWeRatePage = () => {
           <h3 className="text-2xl font-bold text-navy-800 mb-4">Why Trust Our Ratings? 🤔</h3>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div>
-              <h4 className="font-bold text-navy-800 mb-2">Independent Testing</h4>
-              <p className="text-gray-700">We purchase all products at retail price and test them anonymously. No brand partnerships influence our ratings.</p>
+              <h4 className="font-bold text-navy-800 mb-2">Independent Analysis</h4>
+              <p className="text-gray-700">We analyze public data objectively without brand partnerships or sponsored content influencing our ratings.</p>
             </div>
             <div>
-              <h4 className="font-bold text-navy-800 mb-2">Expert Panel</h4>
-              <p className="text-gray-700">Our team includes veterinarians, animal behaviorists, and experienced cat parents.</p>
+              <h4 className="font-bold text-navy-800 mb-2">Expert Team</h4>
+              <p className="text-gray-700">Our team includes data scientists, veterinarians, and experienced cat parents who understand what matters.</p>
             </div>
             <div>
               <h4 className="font-bold text-navy-800 mb-2">Transparent Methodology</h4>
-              <p className="text-gray-700">Every aspect of our testing process is documented and available for review.</p>
+              <p className="text-gray-700">Every aspect of our analysis process is documented and our methodology is completely transparent.</p>
             </div>
             <div>
               <h4 className="font-bold text-navy-800 mb-2">Continuous Updates</h4>
-              <p className="text-gray-700">We regularly retest products and update ratings based on new information and user feedback.</p>
+              <p className="text-gray-700">We regularly update ratings as new reviews and data become available to keep our recommendations current.</p>
             </div>
           </div>
         </div>

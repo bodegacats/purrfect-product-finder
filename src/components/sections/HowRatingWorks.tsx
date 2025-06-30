@@ -16,7 +16,7 @@ const HowRatingWorks = () => {
             <span className="text-6xl ml-4">🔬</span>
           </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Each product is evaluated across 9 essential categories, earning one "life" for excellence in each area. Think of it as a report card for cat products! 📝
+            Each product is evaluated across 9 essential categories by analyzing thousands of reviews, ratings, and data points from across the web.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ const HowRatingWorks = () => {
         <div className="bg-navy-50 rounded-2xl p-8 relative">
           <div className="absolute top-4 right-4 text-4xl">🎯</div>
           <h3 className="text-2xl font-bold text-navy-800 text-center mb-8">
-            The 9 Essential Categories We Test 📋
+            The 9 Essential Categories We Analyze
           </h3>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="space-y-4">

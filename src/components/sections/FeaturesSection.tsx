@@ -14,18 +14,18 @@ const FeaturesSection = () => {
             <span className="text-6xl ml-4">❤️</span>
           </div>
           <p className="text-xl text-gray-600">
-            We're cat people, just like you! We test everything because we want the best for our furry family members 🏠
+            We're cat people, just like you! We analyze everything because we want the best for our furry family members 🏠
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           <Card className="p-8 text-center hover:shadow-lg transition-shadow duration-300">
             <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-4xl">🧪</span>
+              <span className="text-4xl">📊</span>
             </div>
-            <h3 className="text-xl font-bold text-navy-800 mb-4">Real Testing, Real Results</h3>
+            <h3 className="text-xl font-bold text-navy-800 mb-4">Data-Driven Analysis</h3>
             <p className="text-gray-600">
-              We actually test products with real cats (our office has 12 furry employees!) and analyze thousands of reviews to find what truly works.
+              We aggregate and analyze thousands of reviews, ratings, and data points from across the web to find what truly works for cats and their humans.
             </p>
           </Card>
 
@@ -33,9 +33,9 @@ const FeaturesSection = () => {
             <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-4xl">🏆</span>
             </div>
-            <h3 className="text-xl font-bold text-navy-800 mb-4">Cat-Approved Quality</h3>
+            <h3 className="text-xl font-bold text-navy-800 mb-4">Verified Quality</h3>
             <p className="text-gray-600">
-              Every recommendation goes through our rigorous 9 Lives Rating System AND gets the paws-up from our team of feline critics.
+              Every recommendation goes through our rigorous 9 Lives Rating System, ensuring only the most consistently praised products make the cut.
             </p>
           </Card>
 
@@ -45,7 +45,7 @@ const FeaturesSection = () => {
             </div>
             <h3 className="text-xl font-bold text-navy-800 mb-4">Made by Cat Lovers</h3>
             <p className="text-gray-600">
-              Get recommendations tailored to your cat's personality, quirks, and needs. We know every cat is unique (and wonderfully weird)!
+              Get recommendations based on real user experiences and comprehensive data analysis. We know every cat is unique (and wonderfully weird)!
             </p>
           </Card>
         </div>

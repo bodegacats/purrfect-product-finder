@@ -9,15 +9,19 @@ from __future__ import annotations
 import json
 import os
 import random
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict
 
+import logging
 import requests
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 DATA_DIR.mkdir(exist_ok=True)
 RAW_RATINGS_FILE = DATA_DIR / "ratings_raw.json"
+
+logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(message)s")
 
 TOPICS = [
     "food",
@@ -44,7 +48,8 @@ def fetch_topic_ratings(topic: str) -> List[Dict[str, float]]:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         return response.json()
-    except Exception:
+    except Exception as e:
+        logging.error("Failed to fetch %s ratings: %s", topic, e)
         # Fallback: generate dummy rating data
         return [
             {
@@ -62,11 +67,17 @@ def main() -> None:
     all_ratings = {}
     for topic in TOPICS:
         all_ratings[topic] = fetch_topic_ratings(topic)
-
-    RAW_RATINGS_FILE.write_text(
-        json.dumps({"generated": datetime.utcnow().isoformat(), "ratings": all_ratings}, indent=2)
-    )
-    print(f"Wrote raw ratings to {RAW_RATINGS_FILE}")
+    try:
+        RAW_RATINGS_FILE.write_text(
+            json.dumps(
+                {"generated": datetime.utcnow().isoformat(), "ratings": all_ratings},
+                indent=2,
+            )
+        )
+        print(f"Wrote raw ratings to {RAW_RATINGS_FILE}")
+    except Exception as e:
+        logging.error("Failed to write ratings file: %s", e)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

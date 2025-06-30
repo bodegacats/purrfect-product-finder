@@ -71,3 +71,37 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## CatData AI Pipeline
+
+This repository includes an automated pipeline in the `catdata-pipeline` directory.
+The workflow downloads rating data, computes scores, generates articles with the
+FTC disclosure, updates affiliate links, publishes the content and records
+analytics. The pipeline is executed weekly by a GitHub Actions schedule.
+
+### Pipeline steps
+
+1. **Data ingestion** – `data_ingest/data_ingest.py` fetches topic ratings from
+   `RATINGS_API_TEMPLATE` and stores them in `data/ratings_raw.json`.
+2. **Rating computation** – `rating/rating.py` adds a `lives_rating` to each entry.
+3. **Content generation** – `content_gen/content_gen.py` creates markdown files
+   prefixed with the required FTC disclosure.
+4. **Affiliate update** – `utils/affiliates.py` replaces placeholders with real
+   URLs from `affiliates.csv`.
+5. **Publishing** – `cms_publish/cms_publish.py` pushes pages to your CMS.
+6. **Analytics** – `analytics_monitor/analytics_monitor.py` stores basic metrics.
+
+### Environment variables
+
+- `OPENAI_API_KEY` – API key for content generation.
+- `CMS_API_URL` – Endpoint for publishing pages.
+- `CMS_API_KEY` – Authentication token for the CMS.
+- `RATINGS_API_TEMPLATE` – Template URL for rating ingestion.
+- `ANALYTICS_API_URL` / `ANALYTICS_API_KEY` – Analytics endpoints.
+- `SLACK_WEBHOOK_URL` – Webhook used by the scheduled workflow for failure alerts.
+
+### Adding affiliate links
+
+Affiliate placeholders like `{{amazon:Cat Food A}}` are replaced according to
+`catdata-pipeline/affiliates.csv`. Add new rows to that CSV and run the
+pipeline (or `python catdata-pipeline/utils/affiliates.py`) to update links.

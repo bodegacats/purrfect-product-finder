@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import csv
 import os
-from datetime import datetime
 from pathlib import Path
 from typing import List
 
@@ -14,7 +13,9 @@ REPORTS_DIR = Path(__file__).resolve().parents[1] / "reports"
 REPORTS_DIR.mkdir(exist_ok=True)
 SUMMARY_FILE = REPORTS_DIR / "summary.csv"
 
-ANALYTICS_API_URL = os.getenv("ANALYTICS_API_URL", "https://analytics.example.com/api/summary")
+ANALYTICS_API_URL = os.getenv(
+    "ANALYTICS_API_URL", "https://analytics.example.com/api/summary"
+)
 API_KEY = os.getenv("ANALYTICS_API_KEY", "")
 
 

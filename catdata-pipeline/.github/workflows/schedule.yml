@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests openai pytest
+          pip install requests openai pytest flake8
       - name: Run data ingestion
         run: python catdata-pipeline/data_ingest/data_ingest.py
       - name: Run rating computation
@@ -29,5 +29,14 @@ jobs:
         run: python catdata-pipeline/cms_publish/cms_publish.py
       - name: Update analytics
         run: python catdata-pipeline/analytics_monitor/analytics_monitor.py
+      - name: Lint with flake8
+        run: flake8 catdata-pipeline
       - name: Run tests
-        run: pytest catdata-pipeline/rating/tests
+        run: pytest catdata-pipeline
+      - name: Slack notification on failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"CatData pipeline job failed"}' "$SLACK_WEBHOOK_URL"

@@ -37,6 +37,8 @@ const Footer = () => {
         </div>
         <div className="border-t border-navy-700 mt-8 pt-8 text-center text-navy-400">
           <p>&copy; 2024 CatData AI. Made with 💙 by cat parents, for cat parents.</p>
+          {/* FTC affiliate disclosure in site-wide footer */}
+          <p className="mt-2 text-sm">As an Amazon Associate I earn from qualifying purchases.</p>
         </div>
       </div>
     </footer>

@@ -20,6 +20,9 @@ ARTICLE_PROMPT_TEMPLATE = (
 
 openai.api_key = os.getenv("OPENAI_API_KEY", "")
 
+# FTC affiliate disclosure used across all generated content
+FTC_DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
+
 
 def generate_article(topic: str, rating_data: Dict) -> str:
     """Generate article content via OpenAI ChatCompletion."""
@@ -29,7 +32,9 @@ def generate_article(topic: str, rating_data: Dict) -> str:
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
         )
-        return resp.choices[0].message["content"].strip()
+        article = resp.choices[0].message["content"].strip()
+        # Add FTC disclosure to the beginning and end of the article
+        return f"{FTC_DISCLOSURE}\n\n{article}\n\n{FTC_DISCLOSURE}"
     except Exception as e:
         return f"Error generating article for {topic}: {e}"
 

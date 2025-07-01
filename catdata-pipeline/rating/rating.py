@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import List, Dict
 import logging
 import math
-import logging
 import sys
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
@@ -29,26 +28,29 @@ logger = logging.getLogger(__name__)
 def compute_lives_rating(entry: Dict[str, float]) -> float:
     """Compute weighted lives rating on a scale of 1-9.
 
-    Values that are missing or non-numeric are treated as ``0``. The
-    returned rating is always within the range ``1``-``9`` and never ``NaN``.
+    Any missing or non-numeric sub-score is treated as ``0``. The returned
+    rating is always clamped to the inclusive range ``1``-``9``.
     """
+
     score = 0.0
     for key, weight in WEIGHTS.items():
-        if key not in entry:
+        value = entry.get(key)
+        if value is None:
             logger.warning("Missing key '%s' when computing rating", key)
-        value = entry.get(key, 0.0)
+            value = 0.0
         try:
             value = float(value)
         except (TypeError, ValueError):
             value = 0.0
-        if math.isnan(value) or math.isinf(value):
+        if not math.isfinite(value):
             value = 0.0
         score += value * weight
 
-    rating = float(score) / 5 * 8 + 1
-    if math.isnan(rating) or math.isinf(rating):
+    rating = score / 5 * 8 + 1
+    if not math.isfinite(rating):
         rating = 1.0
-    return float(max(1.0, min(9.0, rating)))
+    rating = max(1.0, min(9.0, float(rating)))
+    return rating
 
 
 def process_ratings(raw_data: Dict[str, List[Dict[str, float]]]) -> Dict[str, List[Dict[str, float]]]:

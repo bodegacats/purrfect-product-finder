@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import List, Dict
+import logging
 import math
 import logging
 import sys
@@ -22,6 +23,8 @@ WEIGHTS = {
     "convenience": 0.2,
 }
 
+logger = logging.getLogger(__name__)
+
 
 def compute_lives_rating(entry: Dict[str, float]) -> float:
     """Compute weighted lives rating on a scale of 1-9.
@@ -31,7 +34,9 @@ def compute_lives_rating(entry: Dict[str, float]) -> float:
     """
     score = 0.0
     for key, weight in WEIGHTS.items():
-        value = entry.get(key, 0)
+        if key not in entry:
+            logger.warning("Missing key '%s' when computing rating", key)
+        value = entry.get(key, 0.0)
         try:
             value = float(value)
         except (TypeError, ValueError):
@@ -40,10 +45,10 @@ def compute_lives_rating(entry: Dict[str, float]) -> float:
             value = 0.0
         score += value * weight
 
-    rating = score / 5 * 8 + 1
+    rating = float(score) / 5 * 8 + 1
     if math.isnan(rating) or math.isinf(rating):
         rating = 1.0
-    return max(1.0, min(9.0, rating))
+    return float(max(1.0, min(9.0, rating)))
 
 
 def process_ratings(raw_data: Dict[str, List[Dict[str, float]]]) -> Dict[str, List[Dict[str, float]]]:

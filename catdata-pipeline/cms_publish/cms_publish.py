@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import csv
 import os
 import sys
+import csv
 from datetime import datetime
 from pathlib import Path
 
@@ -14,14 +16,14 @@ CONTENT_DIR = Path(__file__).resolve().parents[1] / "content"
 CMS_API_URL = os.getenv("CMS_API_URL", "https://cms.example.com/api/pages")
 CMS_API_KEY = os.getenv("CMS_API_KEY", "")
 
-DISCLOSURE_LINE = "As an Amazon Associate I earn from qualifying purchases."
+DISCLOSURE_LINE = (
+    "FTC disclosure: This article contains affiliate links and we may earn"
+    " a commission on qualifying purchases."
+)
 
 logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(message)s")
-
-
-def publish_page(title: str, body: str) -> bool:
     """Create or update a page via Lovable CMS API."""
-    if not body.startswith(DISCLOSURE_LINE):
+    if DISCLOSURE_LINE not in body:
         body = f"{DISCLOSURE_LINE}\n\n{body}"
     payload = {
         "title": title,
@@ -41,17 +43,10 @@ def publish_page(title: str, body: str) -> bool:
 
 
 def main() -> None:
+    images = load_image_map()
     success = True
-    for md_file in CONTENT_DIR.glob("*.md"):
-        title = md_file.stem.replace("_", " ").title()
-        try:
-            body = md_file.read_text()
-        except Exception as e:
-            logging.error("Failed to read %s: %s", md_file, e)
             success = False
-            continue
-        if not publish_page(title, body):
-            success = False
+
     if not success:
         sys.exit(1)
 

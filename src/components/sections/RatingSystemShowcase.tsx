@@ -6,38 +6,45 @@ const RatingSystemShowcase = () => {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="flex justify-center items-center mb-6">
-            <span className="text-6xl mr-4">⭐</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-navy-800">
-              The 9 Lives Rating System
-            </h2>
-            <span className="text-6xl ml-4">⭐</span>
-          </div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Our signature rating system evaluates products across 9 critical factors that matter most to cats and their humans 🤝
+          <h2 className="text-4xl font-bold text-charcoal-900 mb-6">
+            The 9 Lives Rating System
+          </h2>
+          <p className="text-xl text-charcoal-600 max-w-3xl mx-auto mb-12">
+            Each product is scored on durability, safety and value using our comprehensive 9-Lives system.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 max-w-6xl mx-auto mb-8">
             <div className="text-center">
-              <NineLivesRating rating={9} size="lg" />
-              <p className="mt-3 font-semibold text-navy-800">Perfect Score 🏆</p>
-              <p className="text-sm text-gray-600">Outstanding in every way</p>
+              <NineLivesRating rating={9} size="lg" showNumeric={false} />
+              <p className="mt-3 font-semibold text-charcoal-800">8–9 Lives</p>
+              <p className="text-sm text-charcoal-600">9-Lives Certified</p>
             </div>
             <div className="text-center">
-              <NineLivesRating rating={7} size="lg" />
-              <p className="mt-3 font-semibold text-navy-800">Excellent 👍</p>
-              <p className="text-sm text-gray-600">Highly recommended</p>
+              <NineLivesRating rating={7} size="lg" showNumeric={false} />
+              <p className="mt-3 font-semibold text-charcoal-800">6–7 Lives</p>
+              <p className="text-sm text-charcoal-600">Premium</p>
             </div>
             <div className="text-center">
-              <NineLivesRating rating={5} size="lg" />
-              <p className="mt-3 font-semibold text-navy-800">Good 👌</p>
-              <p className="text-sm text-gray-600">Solid choice with trade-offs</p>
+              <NineLivesRating rating={5} size="lg" showNumeric={false} />
+              <p className="mt-3 font-semibold text-charcoal-800">5 Lives</p>
+              <p className="text-sm text-charcoal-600">Best Value</p>
             </div>
             <div className="text-center">
-              <NineLivesRating rating={2} size="lg" />
-              <p className="mt-3 font-semibold text-navy-800">Meh 😐</p>
-              <p className="text-sm text-gray-600">Look for alternatives</p>
+              <NineLivesRating rating={3} size="lg" showNumeric={false} />
+              <p className="mt-3 font-semibold text-charcoal-800">3–4 Lives</p>
+              <p className="text-sm text-charcoal-600">Budget Pick</p>
             </div>
+            <div className="text-center">
+              <NineLivesRating rating={1} size="lg" showNumeric={false} />
+              <p className="mt-3 font-semibold text-charcoal-800">1–2 Lives</p>
+              <p className="text-sm text-charcoal-600">Low-durability</p>
+            </div>
+          </div>
+
+          <div className="text-center text-charcoal-600 max-w-2xl mx-auto">
+            <p className="text-sm">
+              <strong>1–2 Lives</strong> (low-durability) • <strong>3–4 Lives</strong> (budget pick) • <strong>5 Lives</strong> (best value) • <strong>6–7 Lives</strong> (premium) • <strong>8–9 Lives</strong> (9-Lives Certified)
+            </p>
           </div>
         </div>
       </div>

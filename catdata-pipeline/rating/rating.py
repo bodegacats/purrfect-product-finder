@@ -26,12 +26,11 @@ logger = logging.getLogger(__name__)
 
 
 def compute_lives_rating(entry: Dict[str, float]) -> float:
-    """Compute weighted lives rating on a scale of 1-9."""
 
     score = 0.0
     for key, weight in WEIGHTS.items():
-        value = entry.get(key)
-        if value is None:
+        raw_value = entry.get(key)
+        if raw_value is None:
             logger.warning("Missing key '%s' when computing rating", key)
             value = 0
         try:
@@ -40,11 +39,6 @@ def compute_lives_rating(entry: Dict[str, float]) -> float:
                 raise ValueError()
         except (TypeError, ValueError):
             numeric = 0.0
-        score += numeric * weight
-
-    rating = (score / 5) * 8 + 1
-    rating = max(1.0, min(9.0, rating))
-    return rating
 
 
 def process_ratings(raw_data: Dict[str, List[Dict[str, float]]]) -> Dict[str, List[Dict[str, float]]]:

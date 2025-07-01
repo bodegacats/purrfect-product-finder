@@ -2,26 +2,25 @@
 
 from __future__ import annotations
 
-import csv
+import logging
 import os
 import sys
-import csv
 from datetime import datetime
 from pathlib import Path
 
-import logging
 import requests
+
 
 CONTENT_DIR = Path(__file__).resolve().parents[1] / "content"
 CMS_API_URL = os.getenv("CMS_API_URL", "https://cms.example.com/api/pages")
 CMS_API_KEY = os.getenv("CMS_API_KEY", "")
 
-DISCLOSURE_LINE = (
-    "FTC disclosure: This article contains affiliate links and we may earn"
-    " a commission on qualifying purchases."
-)
+DISCLOSURE_LINE = "As an Amazon Associate I earn from qualifying purchases."
 
-logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(message)s")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
+
+def publish_page(title: str, body: str) -> bool:
     """Create or update a page via Lovable CMS API."""
     if DISCLOSURE_LINE not in body:
         body = f"{DISCLOSURE_LINE}\n\n{body}"
@@ -37,14 +36,17 @@ logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(mes
         resp.raise_for_status()
         print(f"Published {title}")
         return True
-    except Exception as e:
+    except Exception as e:  # pragma: no cover - network failure
         logging.error("Failed to publish %s: %s", title, e)
         return False
 
 
 def main() -> None:
-    images = load_image_map()
     success = True
+    for md_file in CONTENT_DIR.glob("*.md"):
+        title = md_file.stem
+        body = md_file.read_text()
+        if not publish_page(title, body):
             success = False
 
     if not success:
@@ -53,3 +55,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

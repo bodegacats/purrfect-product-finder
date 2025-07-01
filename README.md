@@ -4,6 +4,10 @@
 
 **URL**: https://lovable.dev/projects/e269439c-4498-4223-b902-045ee9c9aa66
 
+## Project Overview
+
+Purrfect Product Finder is an AI-powered cat-product research tool. It gathers weekly rating data, generates review articles and publishes them automatically to a CMS so owners can easily discover quality items.
+
 ## How can I edit this code?
 
 There are several ways of editing your application.
@@ -94,6 +98,7 @@ analytics. The pipeline is executed weekly by a GitHub Actions schedule.
 ### Environment variables
 
 - `OPENAI_API_KEY` – API key for content generation.
+- `SHEET_CSV_URL` – CSV export URL for the product list.
 - `CMS_API_URL` – Endpoint for publishing pages.
 - `CMS_API_KEY` – Authentication token for the CMS.
 - `RATINGS_API_TEMPLATE` – Template URL for rating ingestion.
@@ -105,3 +110,31 @@ analytics. The pipeline is executed weekly by a GitHub Actions schedule.
 Affiliate placeholders like `{{amazon:Cat Food A}}` are replaced according to
 `catdata-pipeline/affiliates.csv`. Add new rows to that CSV and run the
 pipeline (or `python catdata-pipeline/utils/affiliates.py`) to update links.
+### Adding or updating products
+
+The product and affiliate information lives in `catdata-pipeline/affiliates.csv`. Update this file directly or publish a Google Sheet as CSV and set `SHEET_CSV_URL` so the pipeline pulls the latest data on each run.
+
+### Manually triggering the workflow
+
+The GitHub Actions workflow runs every Monday at 08:00 UTC. To trigger it on demand, open the **Actions** tab, choose **CatData Pipeline Schedule** and click **Run workflow**. You can also trigger it with the GitHub CLI:
+
+```sh
+gh workflow run "CatData Pipeline Schedule" --ref main
+```
+
+### Running locally
+
+For local testing run the pipeline scripts manually:
+
+```sh
+python -m venv .venv
+source .venv/bin/activate
+pip install -r catdata-pipeline/requirements.txt
+python catdata-pipeline/data_ingest/data_ingest.py
+python catdata-pipeline/rating/rating.py
+python catdata-pipeline/content_gen/content_gen.py
+python catdata-pipeline/utils/affiliates.py
+python catdata-pipeline/cms_publish/cms_publish.py
+python catdata-pipeline/analytics_monitor/analytics_monitor.py
+pytest catdata-pipeline
+```

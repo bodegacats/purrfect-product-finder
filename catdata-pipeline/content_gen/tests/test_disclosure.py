@@ -17,3 +17,4 @@ def test_generate_article_includes_disclosure(mock_create):
     mock_create.return_value = FakeResponse("Generated text")
     result = content_gen.generate_article("cats", {})
     assert result.startswith(content_gen.DISCLOSURE_LINE)
+    assert result.rstrip().endswith(content_gen.DISCLOSURE_LINE)

@@ -1,3 +1,3 @@
-product_name,amazon_url,chewy_url,direct_url
-Cat Food A,https://amazon.com/foodA,https://chewy.com/foodA,https://example.com/foodA
-Cat Toy B,https://amazon.com/toyB,https://chewy.com/toyB,https://example.com/toyB
+product_name,amazon_url,chewy_url,direct_url,image_url
+Cat Food A,https://amazon.com/foodA,https://chewy.com/foodA,https://example.com/foodA,
+Cat Toy B,https://amazon.com/toyB,https://chewy.com/toyB,https://example.com/toyB,

@@ -1,4 +1,4 @@
-"""Content generation using OpenAI ChatCompletion."""
+"""Generate markdown articles summarizing top products."""
 
 from __future__ import annotations
 
@@ -16,9 +16,9 @@ DISCLOSURE_LINE = "As an Amazon Associate I earn from qualifying purchases."
 
 
 def add_disclosure(text: str) -> str:
-    """Wrap text with the disclosure line at the top and bottom."""
-    lines = [DISCLOSURE_LINE, "", text.strip(), "", DISCLOSURE_LINE]
-    return "\n".join(lines)
+    """Prepend and append the disclosure line to ``text``."""
+    text = text.strip()
+    return f"{DISCLOSURE_LINE}\n{text}\n{DISCLOSURE_LINE}"
 
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"

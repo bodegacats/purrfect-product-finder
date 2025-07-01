@@ -44,8 +44,6 @@ def generate_article(topic: str, rating_data: Dict) -> str:
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
         )
-        body = resp.choices[0].message["content"].strip()
-        return f"{DISCLOSURE_LINE}\n\n{body}"
     except Exception as e:
         logging.error("Error generating article for %s: %s", topic, e)
         return f"Error generating article for {topic}: {e}"

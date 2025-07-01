@@ -105,3 +105,12 @@ analytics. The pipeline is executed weekly by a GitHub Actions schedule.
 Affiliate placeholders like `{{amazon:Cat Food A}}` are replaced according to
 `catdata-pipeline/affiliates.csv`. Add new rows to that CSV and run the
 pipeline (or `python catdata-pipeline/utils/affiliates.py`) to update links.
+
+### Fetching product images
+
+Install dependencies and run:
+
+```sh
+pip install requests beautifulsoup4
+python fetch_images.py
+```

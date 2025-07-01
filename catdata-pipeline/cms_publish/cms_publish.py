@@ -45,22 +45,6 @@ logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(mes
 def main() -> None:
     images = load_image_map()
     success = True
-    rows = []
-    if CSV_FILE.exists():
-        with CSV_FILE.open() as f:
-            rows = list(csv.DictReader(f))
-    else:
-        logging.error("CSV file %s not found", CSV_FILE)
-
-    for row in rows:
-        title = row.get("product_name") or row.get("title") or ""
-        slug = title.lower().replace(" ", "_")
-        md_file = CONTENT_DIR / f"{slug}.md"
-        if not md_file.exists():
-            logging.error("Missing markdown for %s", title)
-            success = False
-            continue
-        body = md_file.read_text()
             success = False
 
     if not success:

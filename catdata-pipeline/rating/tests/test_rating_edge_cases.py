@@ -16,11 +16,13 @@ def zero_entry():
 
 @pytest.fixture
 def missing_key_entry():
+    # intentionally omit some expected keys
     return {"durability": 2, "safety": 3}
 
 
 @pytest.fixture
 def non_numeric_entry():
+    # values include strings and None which should be treated as 0
     return {"durability": "high", "safety": None, "value": "4", "convenience": []}
 
 
@@ -43,16 +45,19 @@ def test_missing_keys_logged_and_defaults(missing_key_entry, caplog):
     with caplog.at_level("WARNING"):
         rating = compute_lives_rating(missing_key_entry)
     assert any("Missing key" in rec.message for rec in caplog.records)
-    assert 1.0 <= rating <= 9.0 and not math.isnan(rating)
+    assert math.isfinite(rating)
+    assert 1.0 <= rating <= 9.0
 
 
 def test_non_numeric_values(non_numeric_entry):
     rating = compute_lives_rating(non_numeric_entry)
-    assert 1.0 <= rating <= 9.0 and not math.isnan(rating)
+    assert math.isfinite(rating)
+    assert 1.0 <= rating <= 9.0
 
 
 def test_process_ratings_preserves_count(multi_product_data):
     processed = process_ratings(multi_product_data)
+    # number of entries should remain unchanged
     assert len(processed["toys"]) == len(multi_product_data["toys"])
     for entry in processed["toys"]:
         assert "lives_rating" in entry

@@ -16,6 +16,11 @@ CSV_FILE = Path(__file__).resolve().parents[1] / "affiliates.csv"
 CMS_API_URL = os.getenv("CMS_API_URL", "https://cms.example.com/api/pages")
 CMS_API_KEY = os.getenv("CMS_API_KEY", "")
 
+DISCLOSURE_LINE = (
+    "FTC disclosure: This article contains affiliate links and we may earn"
+    " a commission on qualifying purchases."
+)
+
 logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(message)s")
 
 

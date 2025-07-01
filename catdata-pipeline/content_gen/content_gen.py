@@ -17,6 +17,11 @@ CONTENT_DIR = Path(__file__).resolve().parents[1] / "content"
 CONTENT_DIR.mkdir(exist_ok=True)
 RATINGS_FILE = DATA_DIR / "ratings.json"
 
+DISCLOSURE_LINE = (
+    "FTC disclosure: This article contains affiliate links and we may earn"
+    " a commission on qualifying purchases."
+)
+
 logging.basicConfig(
     level=logging.ERROR, format="%(asctime)s %(levelname)s %(message)s"
 )
@@ -44,6 +49,8 @@ def generate_article(topic: str, rating_data: Dict) -> str:
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
         )
+        content = resp.choices[0].message["content"]
+        return f"{DISCLOSURE_LINE}\n\n{content}"
     except Exception as e:
         logging.error("Error generating article for %s: %s", topic, e)
         return f"Error generating article for {topic}: {e}"

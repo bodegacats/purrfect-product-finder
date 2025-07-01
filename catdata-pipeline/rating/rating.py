@@ -5,11 +5,16 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import List, Dict
+import logging
 import math
+import logging
+import sys
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 RAW_RATINGS_FILE = DATA_DIR / "ratings_raw.json"
 RATINGS_FILE = DATA_DIR / "ratings.json"
+
+logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(message)s")
 
 WEIGHTS = {
     "durability": 0.3,
@@ -17,6 +22,8 @@ WEIGHTS = {
     "value": 0.25,
     "convenience": 0.2,
 }
+
+logger = logging.getLogger(__name__)
 
 
 def compute_lives_rating(entry: Dict[str, float]) -> float:
@@ -27,7 +34,9 @@ def compute_lives_rating(entry: Dict[str, float]) -> float:
     """
     score = 0.0
     for key, weight in WEIGHTS.items():
-        value = entry.get(key, 0)
+        if key not in entry:
+            logger.warning("Missing key '%s' when computing rating", key)
+        value = entry.get(key, 0.0)
         try:
             value = float(value)
         except (TypeError, ValueError):
@@ -36,10 +45,10 @@ def compute_lives_rating(entry: Dict[str, float]) -> float:
             value = 0.0
         score += value * weight
 
-    rating = score / 5 * 8 + 1
+    rating = float(score) / 5 * 8 + 1
     if math.isnan(rating) or math.isinf(rating):
         rating = 1.0
-    return max(1.0, min(9.0, rating))
+    return float(max(1.0, min(9.0, rating)))
 
 
 def process_ratings(raw_data: Dict[str, List[Dict[str, float]]]) -> Dict[str, List[Dict[str, float]]]:
@@ -56,12 +65,21 @@ def process_ratings(raw_data: Dict[str, List[Dict[str, float]]]) -> Dict[str, Li
 
 def main() -> None:
     """Read RAW_RATINGS_FILE and write RATINGS_FILE with lives_rating."""
-    data = json.loads(RAW_RATINGS_FILE.read_text())
+    try:
+        data = json.loads(RAW_RATINGS_FILE.read_text())
+    except Exception as e:
+        logging.error("Failed to read raw ratings file: %s", e)
+        sys.exit(1)
+
     processed = process_ratings(data["ratings"])
-    RATINGS_FILE.write_text(
-        json.dumps({"generated": data.get("generated"), "ratings": processed}, indent=2)
-    )
-    print(f"Wrote processed ratings to {RATINGS_FILE}")
+    try:
+        RATINGS_FILE.write_text(
+            json.dumps({"generated": data.get("generated"), "ratings": processed}, indent=2)
+        )
+        print(f"Wrote processed ratings to {RATINGS_FILE}")
+    except Exception as e:
+        logging.error("Failed to write ratings file: %s", e)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

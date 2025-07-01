@@ -27,6 +27,12 @@ ARTICLE_PROMPT_TEMPLATE = (
 
 openai.api_key = os.getenv("OPENAI_API_KEY", "")
 
+# FTC disclosure automatically inserted at the beginning of every article
+DISCLOSURE_LINE = (
+    "FTC Disclosure: This post contains affiliate links. "
+    "If you make a purchase, we may earn a commission."
+)
+
 
 def generate_article(topic: str, rating_data: Dict) -> str:
     """Generate article content via OpenAI ChatCompletion."""
@@ -38,11 +44,12 @@ def generate_article(topic: str, rating_data: Dict) -> str:
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
         )
-        text = resp.choices[0].message["content"]
-        return f"{DISCLOSURE_LINE}\n\n{text}"
     except Exception as e:
         logging.error("Error generating article for %s: %s", topic, e)
         return f"Error generating article for {topic}: {e}"
+
+    content = resp.choices[0].message["content"]
+    return f"{DISCLOSURE_LINE}\n\n{content}\n\n{DISCLOSURE_LINE}"
 
 
 def main() -> None:

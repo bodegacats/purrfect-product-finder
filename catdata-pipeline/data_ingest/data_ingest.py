@@ -1,18 +1,20 @@
 """Data ingestion module for CatData AI project.
 
-Fetches weekly JSON rating arrays for six topics and saves them to
-`data/ratings_raw.json`.
+Pulls rating data from a Google Sheet (published as CSV) and saves it to
+``data/ratings_raw.json``. The sheet URL is provided via the ``SHEET_CSV_URL``
+environment variable. If the HTTP request fails, data from the local
+``affiliates.csv`` file is used instead.
 """
 
 from __future__ import annotations
 
 import json
 import os
-import random
+import csv
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict
+from typing import Dict, List
 
 import logging
 import requests
@@ -32,41 +34,58 @@ TOPICS = [
     "behavior",
 ]
 
-API_TEMPLATE = os.getenv("RATINGS_API_TEMPLATE", "https://example.com/api/{topic}")
+# Google sheet published as CSV that contains ratings data
+SHEET_CSV_URL = os.getenv("SHEET_CSV_URL", "")
+
+# Local fallback CSV if the network request fails
+LOCAL_CSV = Path(__file__).resolve().parents[1] / "affiliates.csv"
 
 
-def fetch_topic_ratings(topic: str) -> List[Dict[str, float]]:
-    """Fetch ratings for a single topic from remote API.
-
-    The returned object is expected to be a list of dictionaries with keys
-    ``durability``, ``safety``, ``value`` and ``convenience``. In case the
-    request fails, random data is returned as a fallback so the pipeline can
-    continue to run without external dependencies during testing.
-    """
-    url = API_TEMPLATE.format(topic=topic)
+def fetch_csv() -> str:
+    """Return CSV text from the Google Sheet or the local fallback."""
+    if SHEET_CSV_URL:
+        try:
+            resp = requests.get(SHEET_CSV_URL, timeout=10)
+            resp.raise_for_status()
+            return resp.text
+        except Exception as e:
+            logging.error("Failed to fetch sheet CSV: %s", e)
     try:
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        return response.json()
+        return LOCAL_CSV.read_text()
     except Exception as e:
-        logging.error("Failed to fetch %s ratings: %s", topic, e)
-        # Fallback: generate dummy rating data
-        return [
-            {
-                "durability": random.uniform(0, 5),
-                "safety": random.uniform(0, 5),
-                "value": random.uniform(0, 5),
-                "convenience": random.uniform(0, 5),
-            }
-            for _ in range(5)
-        ]
+        logging.error("Failed to read fallback CSV: %s", e)
+        return ""
+
+
+def parse_csv(text: str) -> Dict[str, List[Dict[str, float]]]:
+    """Parse CSV text into the ratings structure expected downstream."""
+    result = {topic: [] for topic in TOPICS}
+    reader = csv.DictReader(text.splitlines())
+    for row in reader:
+        topic = row.get("topic", "").strip().lower()
+        if topic not in result:
+            continue
+        try:
+            result[topic].append(
+                {
+                    "durability": float(row.get("durability", 0)),
+                    "safety": float(row.get("safety", 0)),
+                    "value": float(row.get("value", 0)),
+                    "convenience": float(row.get("convenience", 0)),
+                }
+            )
+        except ValueError:
+            logging.error("Invalid numeric value in row: %s", row)
+    return result
 
 
 def main() -> None:
-    """Fetch all topic ratings and save to RAW_RATINGS_FILE."""
-    all_ratings = {}
-    for topic in TOPICS:
-        all_ratings[topic] = fetch_topic_ratings(topic)
+    """Fetch rating CSV and save to ``RAW_RATINGS_FILE``."""
+    csv_text = fetch_csv()
+    if not csv_text:
+        logging.error("No rating data available")
+        sys.exit(1)
+    all_ratings = parse_csv(csv_text)
     try:
         RAW_RATINGS_FILE.write_text(
             json.dumps(

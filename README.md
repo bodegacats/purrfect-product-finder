@@ -4,8 +4,6 @@
 
 This project powers the **Purrfect Product Finder** website. The frontend is built with Vite, React and TypeScript while the `catdata-pipeline` directory contains a Python workflow that automatically gathers rating data, generates articles and publishes them to a CMS.  The pipeline runs weekly through GitHub Actions but can also be triggered manually.
 
-## Environment variables
-
 The pipeline expects several environment variables to be set when running locally or in CI:
 
 - `SHEET_CSV_URL` – URL of the product sheet in CSV form. Used to sync `affiliates.csv`.
@@ -42,9 +40,7 @@ python catdata-pipeline/analytics_monitor/analytics_monitor.py
 
 Product affiliate links are stored in `catdata-pipeline/affiliates.csv`. To add a product or change URLs:
 
-1. Edit the CSV locally or update the remote sheet pointed to by `SHEET_CSV_URL`.
-2. Run the pipeline (either via `./merge_and_run.sh` or the individual commands above). The `utils/affiliates.py` step will update markdown files with the new links.
 
 ---
 
-See `docs/pipeline.md` for a high level diagram of the workflow.
+

@@ -12,6 +12,12 @@ import openai
 
 DISCLOSURE_LINE = "As an Amazon Associate I earn from qualifying purchases."
 
+
+def add_disclosure(text: str) -> str:
+    """Wrap text with the disclosure line at the top and bottom."""
+    lines = [DISCLOSURE_LINE, "", text.strip(), "", DISCLOSURE_LINE]
+    return "\n".join(lines)
+
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 CONTENT_DIR = Path(__file__).resolve().parents[1] / "content"
 CONTENT_DIR.mkdir(exist_ok=True)
@@ -56,7 +62,7 @@ def generate_article(topic: str, rating_data: Dict) -> str:
         return f"Error generating article for {topic}: {e}"
 
     content = resp.choices[0].message["content"]
-    return f"{DISCLOSURE_LINE}\n\n{content}\n\n{DISCLOSURE_LINE}"
+    return add_disclosure(content)
 
 
 def main() -> None:

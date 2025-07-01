@@ -44,7 +44,12 @@ def main() -> None:
     success = True
     for md_file in CONTENT_DIR.glob("*.md"):
         title = md_file.stem.replace("_", " ").title()
-        body = md_file.read_text()
+        try:
+            body = md_file.read_text()
+        except Exception as e:
+            logging.error("Failed to read %s: %s", md_file, e)
+            success = False
+            continue
         if not publish_page(title, body):
             success = False
     if not success:

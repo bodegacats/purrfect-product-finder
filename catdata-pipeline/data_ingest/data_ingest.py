@@ -18,7 +18,11 @@ import logging
 import requests
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
-DATA_DIR.mkdir(exist_ok=True)
+try:
+    DATA_DIR.mkdir(exist_ok=True)
+except Exception as e:
+    logging.error("Failed to create data directory: %s", e)
+    sys.exit(1)
 RAW_RATINGS_FILE = DATA_DIR / "ratings_raw.json"
 
 logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(message)s")

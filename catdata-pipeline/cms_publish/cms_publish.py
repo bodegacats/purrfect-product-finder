@@ -14,11 +14,15 @@ CONTENT_DIR = Path(__file__).resolve().parents[1] / "content"
 CMS_API_URL = os.getenv("CMS_API_URL", "https://cms.example.com/api/pages")
 CMS_API_KEY = os.getenv("CMS_API_KEY", "")
 
+DISCLOSURE_LINE = "As an Amazon Associate I earn from qualifying purchases."
+
 logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(message)s")
 
 
 def publish_page(title: str, body: str) -> bool:
     """Create or update a page via Lovable CMS API."""
+    if not body.startswith(DISCLOSURE_LINE):
+        body = f"{DISCLOSURE_LINE}\n\n{body}"
     payload = {
         "title": title,
         "body": body,

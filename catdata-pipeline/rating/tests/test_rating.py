@@ -4,6 +4,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "rating"))
 
 import json
+import math
 import pytest
 from rating import compute_lives_rating, process_ratings
 
@@ -25,3 +26,21 @@ def test_compute_lives_rating():
 def test_process_ratings(sample_data):
     result = process_ratings(sample_data)
     assert "lives_rating" in result["food"][0]
+
+
+def test_compute_lives_rating_handles_missing_keys():
+    entry = {"durability": 5}
+    rating = compute_lives_rating(entry)
+    assert 1 <= rating <= 9
+    assert not math.isnan(rating)
+
+
+def test_compute_lives_rating_handles_empty_dict():
+    rating = compute_lives_rating({})
+    assert rating == 1.0
+
+
+def test_process_ratings_empty_list():
+    data = {"toys": []}
+    result = process_ratings(data)
+    assert result["toys"] == []

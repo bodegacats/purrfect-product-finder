@@ -28,24 +28,20 @@ logger = logging.getLogger(__name__)
 def compute_lives_rating(entry: Dict[str, float]) -> float:
     """Compute weighted lives rating on a scale of 1-9.
 
-    Any missing or non-numeric sub-score defaults to ``0``.  The returned
-    value is always a finite ``float`` within the range ``1.0``-``9.0``.
     """
+
     score = 0.0
     for key, weight in WEIGHTS.items():
-        if key not in entry:
+        value = entry.get(key)
+        if value is None:
             logger.warning("Missing key '%s' when computing rating", key)
-        raw_value = entry.get(key, 0)
+
         try:
             numeric = float(raw_value)
             if math.isnan(numeric) or math.isinf(numeric):
                 raise ValueError()
         except (TypeError, ValueError):
-            numeric = 0.0
-        score += numeric * weight
 
-    rating = score / 5 * 8 + 1
-    rating = float(max(1.0, min(9.0, rating)))
     return rating
 
 

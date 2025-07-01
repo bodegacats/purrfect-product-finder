@@ -9,13 +9,11 @@ const Navigation = () => {
 
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/litter", label: "Litter & Systems" },
-    { href: "/food", label: "Food & Nutrition" },
-    { href: "/scratching", label: "Scratching & Furniture" },
-    { href: "/toys", label: "Toys & Entertainment" },
-    { href: "/nine-lives-certified", label: "9 Lives Certified" },
-    { href: "/research", label: "Research" },
-    { href: "/how-we-rate", label: "How We Rate" }
+    { href: "/litter", label: "Litter" },
+    { href: "/food", label: "Nutrition" },
+    { href: "/toys", label: "Play" },
+    { href: "/scratching", label: "Health" },
+    { href: "/nine-lives-certified", label: "9-Lives Certified" }
   ];
 
   return (
@@ -27,8 +25,8 @@ const Navigation = () => {
             to={item.href}
             className={cn(
               navigationMenuTriggerStyle(),
-              "text-navy-600 hover:text-navy-800 hover:bg-navy-50",
-              location.pathname === item.href && "bg-navy-100 text-navy-800"
+              "text-charcoal-600 hover:text-charcoal-800 hover:bg-gray-50",
+              location.pathname === item.href && "bg-gray-100 text-charcoal-800"
             )}
           >
             {item.label}
@@ -39,7 +37,7 @@ const Navigation = () => {
         asChild
         className="ml-4 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2"
       >
-        <Link to="/chat">Chat AI 🤖</Link>
+        <Link to="/chat">Chat AI</Link>
       </Button>
     </div>
   );

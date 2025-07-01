@@ -25,6 +25,7 @@ AFFILIATE_CSV = Path(__file__).resolve().parents[1] / "affiliates.csv"
 
 logging.basicConfig(level=logging.ERROR, format="%(asctime)s %(levelname)s %(message)s")
 
+
     try:
         ratings = load_csv_rows()
         RAW_RATINGS_FILE.write_text(
